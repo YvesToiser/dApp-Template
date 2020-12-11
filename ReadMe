@@ -1,0 +1,28 @@
+### Template for js webApp and solidity backend
+
+## Commands
+truffle init : initialize Project
+change solidity version in truffle-config.js
+
+In Ganache add the project config file via the contract tab.
+
+truffle compile : compile code
+if error due to compile version --> change compilers/solc/version in truffle-config.js
+truffle migrate --reset : run migrations files and deploy contracts
+
+truffle console : open ganache console
+
+# In Ganache console --> JS
+let instance = await Main.deployed()
+migrate  : will compile and migrate
+migrate --reset: will overwrite previous migration
+
+
+# Python http server
+python3 -m http.server
+open http://localhost:8000 in browser
+
+
+# intellijIDEA
+intellij-idea-ultimate
+
