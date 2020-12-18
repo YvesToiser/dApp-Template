@@ -1,0 +1,22 @@
+{
+  "name": "dapp-front-end",
+  "version": "1.0.0",
+  "description": "Front-end Web App for dApp template",
+  "main": "main.js",
+  "scripts": {
+    "test": "test-webapp",
+    "dev": "lite-server"
+  },
+  "author": "Yves Toiser",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "web3": "^1.3.0"
+  },
+  "devDependencies": {
+    "lite-server": "^2.6.1",
+    "truffle": "^5.1.57"
+  }
+}

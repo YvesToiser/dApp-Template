@@ -26,3 +26,7 @@ open http://localhost:8000 in browser
 # intellijIDEA
 intellij-idea-ultimate
 
+## web App
+get ABI from build/contracts/
+or directly via : JSON.parse(fs.readFileSync('../build/contracts/Migrations.json', 'utf8'))
+
