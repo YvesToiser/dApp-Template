@@ -1,54 +1,38 @@
 const web3 = new Web3(Web3.givenProvider);
-let contractInstance;
-const contractAddress = '0x5DD60293B642B4D1cDd993059f44D5DF4228fB63'; // TODO Add contract address from migration
-const abi = [
-    {
-        "constant": true,
-        "inputs": [],
-        "name": "getMessage",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "payable": false,
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "constant": false,
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "newMessage",
-                "type": "string"
-            }
-        ],
-        "name": "setMessage",
-        "outputs": [],
-        "payable": true,
-        "stateMutability": "payable",
-        "type": "function"
-    }
-];
+let mainContractInstance;
+let migrationContract = {};
+$.getJSON('../contracts/Migrations.json', function(data) {
+    migrationContract = data;
+});
+let mainContract = {};
+$.getJSON('../contracts/Main.json', function(data) {
+    mainContract = data;
+});
+
 
 $(document).ready(function() {
     window.ethereum.enable().then(function(accounts){   // Will popup box to access metamask to user
-        contractInstance = new web3.eth.Contract(abi, contractAddress, {from: accounts[0]});
-        console.log(contractInstance);
+        mainContractInstance = new web3.eth.Contract(
+            mainContract.abi,
+            mainContract.networks[5777].address,
+            {from: accounts[0]}
+            );
+        console.log(mainContractInstance);
     });
 
     $("#get_data_button").click(fetchAndDisplay);
     $("#add_data_button").click(inputData);
 
+    // console.log(JSON.stringify(migrationContract.abi));
+    // console.log(JSON.stringify(mainContract.abi));
+    // console.log(JSON.stringify(mainContract.networks[5777].address));
 });
 
 function inputData(){
     console.log("Function input data");
-    var name = $("#name_input").val();
-    contractInstance.methods.setMessage(name).send({value: web3.utils.toWei("0.001", "ether")})
+    const name = $("#name_input").val();
+    const price = web3.utils.toWei("0.001", "ether")
+    mainContractInstance.methods.setMessage(name).send({value: price})
         .on('transactionHash', function(hash){
             console.log("tx hash");
         })
@@ -63,7 +47,7 @@ function inputData(){
 
 function fetchAndDisplay(){
     console.log("Function fetch and display");
-    contractInstance.methods.getMessage().call().then(function(res){
+    mainContractInstance.methods.getMessage().call().then(function(res){
         $("#name_output").text(res);
     });
 }
@@ -77,15 +61,6 @@ function fetchAndDisplay(){
 
 
 
-
-
-// const Web3 = require("web3");
-// const migrationContract = JSON.parse(fs.readFileSync(
-//     '../build/contracts/Migrations.json', 'utf8'));
-// console.log(JSON.stringify(migrationContract.abi))
-// const mainContract = JSON.parse(fs.readFileSync(
-//     '../build/contracts/Main.json', 'utf8'));
-// console.log(JSON.stringify(mainContract.abi))
 
 // const Web3 = require("web3");
 // const App = {

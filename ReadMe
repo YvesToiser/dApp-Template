@@ -29,4 +29,6 @@ intellij-idea-ultimate
 ## web App
 get ABI from build/contracts/
 or directly via : JSON.parse(fs.readFileSync('../build/contracts/Migrations.json', 'utf8'))
+front end server can not fetch files from backend so need to copy the contracts json files in front/contracts/ to get automatic contract info in webapp.
+
 
